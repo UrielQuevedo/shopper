@@ -1,0 +1,11 @@
+@import "@/styles/_general_styling.scss";
+
+.swipeable-list-item {
+  margin-top: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  height: 115px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}

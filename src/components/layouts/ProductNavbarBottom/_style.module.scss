@@ -1,0 +1,62 @@
+@import "@/styles/_general_styling.scss";
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.navbar {
+  padding: 14px;
+  position: fixed;
+  bottom: 0px;
+  background-color: $primary;
+  height: 100px;
+  color: $main;
+  width: 100%;
+  border-radius: 26px 26px 0px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar::after {
+  width: 75px;
+  height: 75px;
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 7rem;
+  margin: auto;
+  background-color: $background;
+  border-radius: 43px;
+}
+
+.addButton {
+  width: 65px;
+  height: 65px;
+  background-color: $background;
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 7rem;
+  margin: auto;
+  border-radius: 43px;
+  border: 6px solid $primary;
+  z-index: 1;
+}
+
+.continueButton {
+  background-color: $primary;
+  border: 0px;
+  color: #C3F0CA;
+  font-family: '__Caveat_245150', '__Caveat_Fallback_245150';
+  font-style: normal;
+  font-size: 32px;
+  margin-right: 15px;
+}

@@ -1,0 +1,11 @@
+@import "@/styles/_general_styling.scss";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 3px;
+  width: 100%;
+  flex-direction: row;
+  font-size: 22px;
+  font-weight: bold;
+}

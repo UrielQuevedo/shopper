@@ -8,6 +8,8 @@ import {
   deleteDoc,
   query,
   where,
+  getDoc,
+  DocumentData,
 } from "firebase/firestore";
 
 import { firestore } from "../firebase";
@@ -28,10 +30,21 @@ abstract class AbstractRepository<T> {
 
   protected abstract mapFromObject(data: object): T;
 
+  public getById = async (id: string): Promise<DocumentData | undefined> => {
+    try {
+      const docRef = doc(firestore, this.collectionName, id);
+      const docSnap = await getDoc(docRef);
+
+      return docSnap.data();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   public getAll = async (): Promise<T[]> => {
     try {
       const querySnapshot = await getDocs(
-        collection(firestore, this.collectionName)
+        collection(firestore, this.collectionName),
       );
       const entities: T[] = [];
       querySnapshot.forEach((doc) => {
@@ -43,7 +56,7 @@ abstract class AbstractRepository<T> {
       console.log(error);
       console.error(
         `Error al obtener los elementos de ${this.collectionName}:`,
-        error
+        error,
       );
       throw error;
     }
@@ -51,14 +64,14 @@ abstract class AbstractRepository<T> {
 
   public createIfNotExist = async (
     entity: T,
-    whereCondition: WhereType
+    whereCondition: WhereType,
   ): Promise<void> => {
     try {
       if (whereCondition && whereCondition.where && whereCondition.value) {
         const { where: where_, value } = whereCondition;
         const existsQuery = query(
           collection(firestore, this.collectionName),
-          where(where_, "==", value)
+          where(where_, "==", value),
         );
         const existsSnapshot = await getDocs(existsQuery);
 
@@ -70,7 +83,7 @@ abstract class AbstractRepository<T> {
       }
     } catch (error) {
       console.error(
-        `Error al crear un elemento si no existe ya el campo: ${error}`
+        `Error al crear un elemento si no existe ya el campo: ${error}`,
       );
       throw error;
     }
@@ -82,14 +95,14 @@ abstract class AbstractRepository<T> {
 
       const docRef = await addDoc(
         collection(firestore, this.collectionName),
-        data
+        data,
       );
       const newEntity = { ...entity, id: docRef.id };
       await this.update(docRef.id, newEntity);
     } catch (error) {
       console.error(
         `Error al crear un elemento en ${this.collectionName}:`,
-        error
+        error,
       );
       throw error;
     }
@@ -103,7 +116,7 @@ abstract class AbstractRepository<T> {
     } catch (error) {
       console.error(
         `Error al actualizar el elemento de ${this.collectionName} con ID ${id}:`,
-        error
+        error,
       );
       throw error;
     }
@@ -116,7 +129,7 @@ abstract class AbstractRepository<T> {
     } catch (error) {
       console.error(
         `Error al eliminar el elemento de ${this.collectionName} con ID ${id}:`,
-        error
+        error,
       );
       throw error;
     }

@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  h1 {
+    font-size: 40px;
+  }
+
+  h2 {
+    margin: 10px 0;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .description {
+    font-size: 18px;
+    div {
+      color: #828282;
+    }
+
+    p {
+      color: #9B51E0;
+    }
+  }
+}
+
+.width100 {
+  width: 100%;
+}

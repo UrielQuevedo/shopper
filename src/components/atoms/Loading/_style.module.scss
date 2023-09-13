@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin: 35px 0;
+}
+
+.image {
+  border-radius: 25px;
+}
+
+.text {
+  margin-top: 15px;
+  font-size: 28px;
+  color: #554440;
+}

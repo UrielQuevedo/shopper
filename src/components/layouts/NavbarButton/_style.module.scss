@@ -1,0 +1,19 @@
+@import "@/styles/_general_styling.scss";
+
+.navbar {
+  padding: 14px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: #f0fbfb;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
