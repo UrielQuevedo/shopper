@@ -5,7 +5,7 @@ import Product from "@/services/firebase/entities/Product";
 import NavbarButton from "@/components/layouts/NavbarButton";
 import { useRouter } from "next/navigation";
 import DefaultInput from "@/components/atoms/DefaultInput";
-import { PRODUCT_INPUTS, ProductInput } from "@/utils/inputs";
+import { ProductInput } from "@/utils/inputs";
 import { calculateDiscount } from "@/utils/functions";
 
 type ProductKeys = keyof Product;

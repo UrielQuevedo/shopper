@@ -26,6 +26,10 @@ export default function EditProductPage({
     setLoading(false);
   };
 
+  const editProduct = async (product: Product) => {
+    await ProductService.updateProduct(params.id, product);
+  };
+
   useEffect(() => {
     getProduct();
   }, [params.id]);
@@ -42,7 +46,7 @@ export default function EditProductPage({
               backLink={BACK_LINK}
               buttonName="Guardar"
               inputs={PRODUCT_EDIT_INPUTS}
-              onSubmit={() => {}}
+              onSubmit={editProduct}
             />
           </Container>
         )}

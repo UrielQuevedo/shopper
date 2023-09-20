@@ -1,10 +1,10 @@
 import Styles from "./_style.module.scss";
 
-interface ProductQuantityButtonProps {
+export interface ProductQuantityButtonProps {
   quantity: number;
-  handleDecrease?: () => {};
-  handleIncrease?: () => {};
-  onDelete: any;
+  handleDecrease: () => Promise<void>;
+  handleIncrease: () => Promise<void>;
+  onDelete: () => Promise<void>;
 }
 
 const ProductQuantityButton = ({
@@ -13,12 +13,11 @@ const ProductQuantityButton = ({
   handleDecrease,
   onDelete,
 }: ProductQuantityButtonProps) => {
-
-  const onDecrease = () => {
+  const onDecrease = async () => {
     if (quantity === 1) {
-      onDelete();
+      await onDelete();
     } else {
-      // handleDecrease();
+      await handleDecrease();
     }
   };
 

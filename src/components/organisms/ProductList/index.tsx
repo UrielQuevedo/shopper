@@ -12,9 +12,13 @@ import { useRouter } from "next/navigation";
 const ProductList = ({
   products,
   onDelete,
+  onDecrease,
+  onIncrease,
 }: {
   products: Product[];
-  onDelete: (productId: string) => void;
+  onDelete: (productId: string) => Promise<void>;
+  onIncrease: (productId: string) => Promise<void>;
+  onDecrease: (productId: string) => Promise<void>;
 }) => {
   const threshold = 0.35;
   const router = useRouter();
@@ -43,7 +47,12 @@ const ProductList = ({
             <SimpleProductCard {...product} />
           )}
           {product.price > 0 && (
-            <SwipeableProductCard {...product} onDelete={() => onDelete(id!)} />
+            <SwipeableProductCard
+              {...product}
+              onDelete={async () => await onDelete(id!)}
+              handleDecrease={async () => await onDecrease(id!)}
+              handleIncrease={async () => await onIncrease(id!)}
+            />
           )}
         </SwipeableListItem>
       ))}

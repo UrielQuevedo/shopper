@@ -1,12 +1,13 @@
 import Styles from "./_style.module.scss";
-import ProductQuantityButton from "@/components/atoms/ProductQuantityButton";
+import ProductQuantityButton, {
+  ProductQuantityButtonProps,
+} from "@/components/atoms/ProductQuantityButton";
 
-interface SwipeableProductCardProp {
+interface SwipeableProductCardProp extends ProductQuantityButtonProps {
   price: number;
   name: string;
   quantity: number;
   note?: string;
-  onDelete: () => void;
 }
 
 const SwipeableProductCard = ({
@@ -14,27 +15,21 @@ const SwipeableProductCard = ({
   price,
   quantity,
   note,
-  onDelete,
+  ...props
 }: SwipeableProductCardProp) => {
   const { width100, container, description } = Styles;
   return (
     <section className={width100}>
-      <article className={container}
-      >
+      <article className={container}>
         <h1> {name}</h1>
-        <h2>
-          ${price * quantity}
-        </h2>
+        <h2>${price * quantity}</h2>
       </article>
-      <article
-        className={container}
-	style={{ marginTop: '8px' }}
-      >
+      <article className={container} style={{ marginTop: "8px" }}>
         <div className={description}>
           <div>c/u ${price}</div>
           <p>{note}</p>
         </div>
-        <ProductQuantityButton quantity={quantity} onDelete={onDelete} />
+        <ProductQuantityButton quantity={quantity} {...props} />
       </article>
     </section>
   );

@@ -26,10 +26,6 @@ export default function Home() {
     getProducts(search);
   }, [search]);
 
-  const pushDefaultProducts = async () => {
-    await getProducts(search);
-  };
-
   const handleSearch = (newSearch: string) => {
     setSearch(() => newSearch);
   };
@@ -39,17 +35,29 @@ export default function Home() {
     await getProducts(search);
   };
 
+  const increaseProduct = async (productId: string) => {
+    await ProductService.updateQuantityProduct(productId, "INCREASE");
+    await getProducts(search);
+  };
+  const decreaseProduct = async (productId: string) => {
+    await ProductService.updateQuantityProduct(productId, "DECREASE");
+    await getProducts(search);
+  };
+
   return (
     <main>
       <Navbar />
       <section className={styles.main}>
         <InputSearch handleSearch={handleSearch} />
         <Loading isLoading={loading} />
-        <ProductList products={products} onDelete={deleteProduct} />
+        <ProductList
+          products={products}
+          onDelete={deleteProduct}
+          onDecrease={decreaseProduct}
+          onIncrease={increaseProduct}
+        />
       </section>
-      <ProductNavbarBottom
-        products={products}
-      />
+      <ProductNavbarBottom products={products} />
     </main>
   );
 }

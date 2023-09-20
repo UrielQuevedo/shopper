@@ -72,6 +72,25 @@ const ProductService = {
     }
   },
 
+  updateQuantityProduct: async (
+    productId: string,
+    actions: "DECREASE" | "INCREASE",
+  ): Promise<void> => {
+    try {
+      const product = (await productRepository.getById(productId)) as Product;
+
+      if (actions === "DECREASE") {
+        product.quantity = Number(product.quantity) - 1;
+      } else {
+        product.quantity = Number(product.quantity) + 1;
+      }
+      await productRepository.update(productId, product);
+    } catch (error) {
+      console.error("Error al incrementar o decrementar el producto:", error);
+      throw error;
+    }
+  },
+
   deleteProduct: async (productId: string): Promise<void> => {
     try {
       await productRepository.delete(productId);
