@@ -21,6 +21,7 @@ export default function EditListPage({ params: { shopperListId } }: { params: { 
 
   useEffect(() => {
     getListShopper();
+  // eslint-disable-next-line react-hooks/exhaustive-deps 
   }, [shopperListId]);
 
   const editList = async (listShopper: ListShopper) => {

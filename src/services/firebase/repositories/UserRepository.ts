@@ -14,7 +14,6 @@ class UserRepository extends AbstractRepository<User> {
     return {
       id: data.id,
       name: data.name,
-      listShopperIds: data.listShopperIds,
     } as User;
   }
 }

@@ -19,7 +19,7 @@ export default function ListCard({
   dateCompleted,
 }: ListCardProps) {
   const router = useRouter();
-  const [{ totalProducts, totalProductsAdded, totalPrice }, setData] = useState({
+  const [{ totalProducts, totalProductsAdded }, setData] = useState({
     totalProducts: 0,
     totalProductsAdded: 0,
     totalPrice: 0
@@ -36,6 +36,7 @@ export default function ListCard({
 
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (

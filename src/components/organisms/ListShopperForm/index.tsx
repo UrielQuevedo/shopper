@@ -28,6 +28,7 @@ const ListShopperForm = ({
       discountAmount: 0,
       date: getCurrentDate(),
       userId: "",
+      type: 'Normal'
     },
   );
 

@@ -84,11 +84,13 @@ export default function List() {
   useEffect(() => {
     getShopperList();
     getListShopperData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shopperListId]);
 
   useEffect(() => {
     setLoading(true);
     getProducts(search);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, shopperListId]);
 
   const handleSearch = (newSearch: string) => {

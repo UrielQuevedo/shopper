@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import ProductService from "@/services/firebase/services/ProductService";
 import Product from "@/services/firebase/entities/Product";
 import NavbarButton from "@/components/layouts/NavbarButton";
 import { useRouter } from "next/navigation";
@@ -9,7 +8,7 @@ import { ProductInput } from "@/utils/inputs";
 import { calculateDiscount } from "@/utils/functions";
 import ListShopperController from "@/services/firebase/controller/ListShopperController";
 
-type ProductKeys = keyof Product;
+type ProductKeysWOMarked = Exclude<keyof Product, 'marked'>
 
 interface ProductFormProps {
   backLink: string;
@@ -52,6 +51,7 @@ const ProductForm = ({
 
   useEffect(() => {
     getTotalPrice();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,8 +76,8 @@ const ProductForm = ({
         <DefaultInput
           key={i}
           value={
-            product[inputsOptions.name as ProductKeys]
-              ? product[inputsOptions.name as ProductKeys]
+            product[inputsOptions.name as ProductKeysWOMarked]
+              ? product[inputsOptions.name as ProductKeysWOMarked]
               : ""
           }
           {...inputsOptions}
