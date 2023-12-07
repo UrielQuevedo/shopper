@@ -5,6 +5,16 @@ import { searchBy } from "../util/product-filter";
 const productRepository = new ProductRepository();
 
 const ProductService = {
+  getProductsFromListShopperId: async (listId: string, name: string): Promise<Product[]> => {
+    try {
+      const products = await productRepository.getProductsFromList(listId);
+      return searchBy(name, products);
+    } catch (error) {
+      console.error("Error al obtener los productos:", error);
+      throw error;
+    }
+  },
+
   getAllProducts: async (name: string): Promise<Product[]> => {
     try {
       const products = (await productRepository.getAll()).map(
@@ -48,9 +58,9 @@ const ProductService = {
     }
   },
 
-  createProduct: async (product: Product): Promise<void> => {
+  createProduct: async (product: Product): Promise<string> => {
     try {
-      await productRepository.createIfNotExist(product, {
+      return await productRepository.createIfNotExist(product, {
         where: "name",
         value: product.name,
       });

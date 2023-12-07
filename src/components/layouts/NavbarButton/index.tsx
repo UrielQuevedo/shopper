@@ -7,17 +7,20 @@ interface NavbarButtonProps {
   isLoading: boolean;
   price: number;
   showPrice: boolean;
+  priceAdded: number;
 }
 
 const NavbarButton = ({
   name,
   isLoading,
-  price = 3000,
+  price,
   showPrice = true,
+  priceAdded,
 }: NavbarButtonProps) => {
   return (
     <div className={Styles.navbar}>
       <NavbarSubtotal
+        priceAdded={priceAdded}
         isLoading={isLoading}
         price={price}
         showPrice={showPrice}

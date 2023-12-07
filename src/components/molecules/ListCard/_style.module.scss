@@ -1,0 +1,43 @@
+@import "@/styles/_general_styling.scss";
+
+.card {
+  background: white;
+  padding: 15px 19px;
+  border-radius: 18px;
+  width: 100%;
+  margin-top: 18px;
+  box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.06);
+
+  h3 {
+    color: gray;
+    font-weight: 500;
+  }
+}
+
+.empty {
+  text-align: right;
+  font-size: 28px;
+  color: brown;
+}
+
+.completed {
+  text-align: right;
+  font-size: 28px;
+  color: green;
+}
+
+.pending {
+  text-align: right;
+  font-size: 28px;
+  color: orange;
+}
+
+.titleCard {
+  font-size: 42px;
+  margin-bottom: 5px;
+
+}
+
+.totalNumber {
+  font-size: 22px;
+}

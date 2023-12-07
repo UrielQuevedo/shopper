@@ -8,20 +8,38 @@ import {
 import SwipeableCard from "@/components/atoms/SwipeableCard";
 import SimpleProductCard from "@/components/molecules/SimpleProductCard";
 import { useRouter } from "next/navigation";
+import ProductService from "@/services/firebase/services/ProductService";
 
 const ProductList = ({
   products,
-  onDelete,
-  onDecrease,
-  onIncrease,
+  updateProducts,
+  shopperListId,
 }: {
   products: Product[];
-  onDelete: (productId: string) => Promise<void>;
-  onIncrease: (productId: string) => Promise<void>;
-  onDecrease: (productId: string) => Promise<void>;
+  updateProducts: () => Promise<void>;
+  shopperListId: string;
 }) => {
   const threshold = 0.35;
   const router = useRouter();
+
+  const onDecrease = (productId: string) => async () => {
+    await ProductService.updateQuantityProduct(productId, "DECREASE");
+    await updateProducts();
+  };
+
+  const onIncrease = (productId: string) => async () => {
+    await ProductService.updateQuantityProduct(productId, "INCREASE");
+    await updateProducts();
+  };
+
+  const onDelete = (productId: string) => async () => {
+    await ProductService.deleteProduct(productId);
+    await updateProducts();
+  };
+
+  const goToProduct = (id?: string) => {
+    router.push(`/lists/${shopperListId}/product/${id}`);
+  };
 
   return (
     <SwipeableList threshold={threshold}>
@@ -32,26 +50,26 @@ const ProductList = ({
             content: (
               <SwipeableCard direction="right" background="#FF4D4F" action="" />
             ),
-            action: () => onDelete(id!),
+            action: onDelete(id!),
             actionAnimation: ActionAnimations.REMOVE,
           }}
           swipeRight={{
             content: (
               <SwipeableCard direction="left" background="#00B894" action="" />
             ),
-            action: () => router.push(`/product/${id}`),
+            action: () => goToProduct(id),
             actionAnimation: ActionAnimations.REMOVE,
           }}
         >
           {!product.price && product.quantity > 0 && (
-            <SimpleProductCard {...product} />
+            <SimpleProductCard {...product} goTo={() => goToProduct(id)} />
           )}
           {product.price > 0 && (
             <SwipeableProductCard
               {...product}
-              onDelete={async () => await onDelete(id!)}
-              handleDecrease={async () => await onDecrease(id!)}
-              handleIncrease={async () => await onIncrease(id!)}
+              onDelete={onDelete(id!)}
+              handleDecrease={onDecrease(id!)}
+              handleIncrease={onIncrease(id!)}
             />
           )}
         </SwipeableListItem>

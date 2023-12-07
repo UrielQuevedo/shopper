@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import DefaultInput from "@/components/atoms/DefaultInput";
 import { ProductInput } from "@/utils/inputs";
 import { calculateDiscount } from "@/utils/functions";
+import ListShopperController from "@/services/firebase/controller/ListShopperController";
 
 type ProductKeys = keyof Product;
 
@@ -16,6 +17,7 @@ interface ProductFormProps {
   onSubmit: any;
   defaultProduct?: Product | null | undefined;
   inputs: ProductInput[];
+  listShopperId: string;
 }
 
 const ProductForm = ({
@@ -24,10 +26,12 @@ const ProductForm = ({
   onSubmit,
   defaultProduct,
   inputs,
+  listShopperId,
 }: ProductFormProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [discountAmount, setDiscountAmount] = useState<number>(0);
 
   const [product, setProduct] = useState<Product>(
     defaultProduct || {
@@ -39,8 +43,9 @@ const ProductForm = ({
   const { quantity, price } = product;
 
   const getTotalPrice = async () => {
-    const totalPriceResponse = await ProductService.getTotalPrice();
-    setTotalPrice(totalPriceResponse);
+    const data = await ListShopperController.getDataFromListShopper(listShopperId);
+    setTotalPrice(data.totalPrice);
+    setDiscountAmount(data.discountAmount);
   };
 
   useEffect(() => {
@@ -79,7 +84,8 @@ const ProductForm = ({
       ))}
       <NavbarButton
         showPrice={price > 0 && quantity > 0}
-        price={calculateDiscount(price * quantity) + totalPrice}
+        priceAdded={calculateDiscount(price * quantity, discountAmount)}
+        price={calculateDiscount(price * quantity, discountAmount) + totalPrice}
         isLoading={isLoading}
         name={buttonName}
       />

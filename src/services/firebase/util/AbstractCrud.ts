@@ -30,14 +30,15 @@ abstract class AbstractRepository<T> {
 
   protected abstract mapFromObject(data: object): T;
 
-  public getById = async (id: string): Promise<DocumentData | undefined> => {
+  public getById = async (id: string): Promise<T> => {
     try {
       const docRef = doc(firestore, this.collectionName, id);
       const docSnap = await getDoc(docRef);
 
-      return docSnap.data();
+      return docSnap.data() as T;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   };
 
@@ -65,7 +66,7 @@ abstract class AbstractRepository<T> {
   public createIfNotExist = async (
     entity: T,
     whereCondition: WhereType,
-  ): Promise<void> => {
+  ): Promise<string> => {
     try {
       if (whereCondition && whereCondition.where && whereCondition.value) {
         const { where: where_, value } = whereCondition;
@@ -79,8 +80,10 @@ abstract class AbstractRepository<T> {
           throw new Error(`El ${where_} de la entidad ya existe.`);
         }
 
-        await this.create(entity);
+        return await this.create(entity);
       }
+
+      throw new Error("No hay condicion");
     } catch (error) {
       console.error(
         `Error al crear un elemento si no existe ya el campo: ${error}`,
@@ -89,7 +92,7 @@ abstract class AbstractRepository<T> {
     }
   };
 
-  public create = async (entity: T): Promise<void> => {
+  public create = async (entity: T): Promise<string> => {
     try {
       const data = this.mapToObject(entity);
 
@@ -99,6 +102,8 @@ abstract class AbstractRepository<T> {
       );
       const newEntity = { ...entity, id: docRef.id };
       await this.update(docRef.id, newEntity);
+
+      return docRef.id;
     } catch (error) {
       console.error(
         `Error al crear un elemento en ${this.collectionName}:`,

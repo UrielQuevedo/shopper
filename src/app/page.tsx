@@ -1,63 +1,46 @@
 "use client";
-import ProductNavbarBottom from "@/components/layouts/ProductNavbarBottom";
-import ProductList from "@/components/organisms/ProductList";
-import Product from "@/services/firebase/entities/Product";
-import ProductService from "@/services/firebase/services/ProductService";
-import "@sandstreamdev/react-swipeable-list/dist/styles.css";
-import { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import Navbar from "@/components/layouts/Navbar";
-import InputSearch from "@/components/atoms/InputSearch";
-import Loading from "@/components/atoms/Loading";
+import NavbarTitle from "@/components/layouts/NavbarTitle";
+import ListCard from "@/components/molecules/ListCard";
+import DefaultNavbarButton from "@/components/atoms/DefaultNavbarButton";
+import { useEffect, useState } from "react";
+import UserService from "@/services/firebase/services/UserService";
+import ListShopper from "@/services/firebase/entities/ListShopper";
+import ListShopperController from "@/services/firebase/controller/ListShopperController";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [search, setSearch] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [listShopper, setListShopper] = useState<ListShopper[]>([]);
+  const router = useRouter();
 
-  const getProducts = async (search: string) => {
-    const products_ = await ProductService.getAllProducts(search);
-    setProducts(products_);
-    setLoading(false);
+  const getListShopper = async () => {
+    const data = await UserService.getUserByName("Po");
+    const listShoppersResponse = await ListShopperController.getShoppersListFromUserById(data.id!);
+
+    setListShopper(listShoppersResponse);
   };
+
+  const goToCreateList = () => { router.push("/lists") }
 
   useEffect(() => {
-    setLoading(true);
-    getProducts(search);
-  }, [search]);
-
-  const handleSearch = (newSearch: string) => {
-    setSearch(() => newSearch);
-  };
-
-  const deleteProduct = async (productId: string) => {
-    await ProductService.deleteProduct(productId);
-    await getProducts(search);
-  };
-
-  const increaseProduct = async (productId: string) => {
-    await ProductService.updateQuantityProduct(productId, "INCREASE");
-    await getProducts(search);
-  };
-  const decreaseProduct = async (productId: string) => {
-    await ProductService.updateQuantityProduct(productId, "DECREASE");
-    await getProducts(search);
-  };
+    getListShopper();
+  }, []);
 
   return (
     <main>
-      <Navbar />
+      <NavbarTitle backLink="/" title="Listas" />
       <section className={styles.main}>
-        <InputSearch handleSearch={handleSearch} />
-        <Loading isLoading={loading} />
-        <ProductList
-          products={products}
-          onDelete={deleteProduct}
-          onDecrease={decreaseProduct}
-          onIncrease={increaseProduct}
-        />
+        <div className={styles.listContainer}>
+          {listShopper.map((listProps) => (
+            <ListCard {...listProps} key={listProps.id} />
+          ))}
+        </div>
       </section>
-      <ProductNavbarBottom products={products} />
+      <div className={styles.navbar}>
+        <div className={styles.buttonContainer}>
+          <DefaultNavbarButton name="Nueva Lista" isLoading={false} onClick={goToCreateList} />
+        </div>
+      </div>
     </main>
   );
 }

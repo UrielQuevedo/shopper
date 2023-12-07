@@ -25,10 +25,11 @@ const DefaultInput = ({
       <TextareaAutosize
         name={name}
         placeholder={placeholder}
-        value={value}
+        defaultValue={value}
         minRows={4}
         maxRows={6}
         className={Styles.textArea}
+        onChange={onChange}
       />
     );
   }

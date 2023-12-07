@@ -9,44 +9,44 @@ import Product from "@/services/firebase/entities/Product";
 import Loading from "@/components/atoms/Loading";
 import { PRODUCT_EDIT_INPUTS } from "@/utils/inputs";
 
-const BACK_LINK = "/";
-
 export default function EditProductPage({
   params,
 }: {
-  params: { id: string };
+  params: { productId: string, shopperListId: string };
 }) {
   const [defaultProduct, setDefaultProduct] = useState<Product | null>();
   const [loading, setLoading] = useState<boolean>(true);
+  const back_link = `/lists/${params.shopperListId}`
 
   const getProduct = async () => {
     setLoading(true);
-    const product = await ProductService.getProductById(params.id);
+    const product = await ProductService.getProductById(params.productId);
     setDefaultProduct(product);
     setLoading(false);
   };
 
   const editProduct = async (product: Product) => {
-    await ProductService.updateProduct(params.id, product);
+    await ProductService.updateProduct(params.productId, product);
   };
 
   useEffect(() => {
     getProduct();
-  }, [params.id]);
+  }, [params]);
 
   return (
     <main>
-      <NavbarTitle backLink={BACK_LINK} title="Editar Producto" />
+      <NavbarTitle backLink={back_link} title="Editar Producto" />
       <section className={styles.main}>
         <Loading isLoading={loading} />
         {!loading && (
           <Container maxWidth="md">
             <ProductForm
               defaultProduct={defaultProduct}
-              backLink={BACK_LINK}
+              backLink={back_link}
               buttonName="Guardar"
               inputs={PRODUCT_EDIT_INPUTS}
               onSubmit={editProduct}
+              listShopperId={params.shopperListId}
             />
           </Container>
         )}

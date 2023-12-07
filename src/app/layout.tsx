@@ -41,6 +41,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Chequear si estoy logeado o si no lo envio al login
   return (
     <html lang="es" className={caveat.className}>
       <body>{children}</body>

@@ -6,6 +6,23 @@ export interface ProductInput {
   required?: boolean;
 }
 
+export interface InputProps extends ProductInput {}
+
+export const LIST_SHOPPER_INPUTS: InputProps[] = [
+  {
+    name: "title",
+    placeholder: "Titulo",
+    type: "text",
+    autoFocus: true,
+  },
+  {
+    name: "discountAmount",
+    placeholder: "Descuento",
+    type: "number",
+    required: false,
+  }
+];
+
 export const PRODUCT_INPUTS: ProductInput[] = [
   {
     name: "name",
