@@ -5,12 +5,15 @@ const searchByName = (name: string, products: Product[]) => {
     return products;
   }
 
-  return products.filter(( product ) =>
-    product.name.toLowerCase().includes(name.toLowerCase())
+  return products.filter((product) =>
+    product.name.toLowerCase().includes(name.toLowerCase()),
   );
 };
 
-const orderProductsBy = (products: Product[], ordersBy: ((a: Product, b: Product) => number)[]) => {
+const orderProductsBy = (
+  products: Product[],
+  ordersBy: ((a: Product, b: Product) => number)[],
+) => {
   return products.sort((a, b) => {
     for (const orderBy of ordersBy) {
       const resultado = orderBy(a, b);
@@ -34,10 +37,10 @@ const orderByQuantity = (a: Product, b: Product) => a.quantity - b.quantity;
 const orderByName = (a: Product, b: Product) => a.name.localeCompare(b.name);
 
 const ordersBy = {
-  'name': orderByName,
-  'quantity': orderByQuantity,
-  'price': orderByDescendingPrice
-}
+  name: orderByName,
+  quantity: orderByQuantity,
+  price: orderByDescendingPrice,
+};
 
 export const searchBy = (name: string, products: Product[]) => {
   const productsSearched = searchByName(name, products);

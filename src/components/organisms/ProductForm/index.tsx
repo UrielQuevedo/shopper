@@ -36,14 +36,16 @@ const ProductForm = ({
   const [product, setProduct] = useState<Product>(
     defaultProduct || {
       name: "",
-      quantity: 0,
+      quantity: 1,
       price: 0,
     },
   );
   const { quantity, price } = product;
 
   const getTotalPrice = async () => {
-    const data = await ListShopperController.getDataFromListShopper(listShopperId);
+    const data = await ListShopperController.getDataFromListShopper(
+      listShopperId,
+    );
     setTotalPrice(data.totalPrice);
     setDiscountAmount(data.discountAmount);
   };

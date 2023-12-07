@@ -5,6 +5,7 @@ interface ListShopper {
   dateCompleted?: string;
   discountAmount: number;
   userId: string;
+  type: "Fast" | "Normal";
 }
 
 export default ListShopper;

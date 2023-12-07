@@ -4,14 +4,14 @@ interface SimpleProductCardProps {
   name: string;
   quantity: number;
   note?: string;
-  goTo: any;
+  goTo?: any;
 }
 
 const SimpleProductCard = ({
   name,
   quantity,
   note,
-  goTo,
+  goTo = () => {},
 }: SimpleProductCardProps) => {
   const { width100, container } = Styles;
   return (
