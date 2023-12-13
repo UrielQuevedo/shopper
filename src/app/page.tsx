@@ -15,12 +15,15 @@ export default function Home() {
 
   const getListShopper = async () => {
     const data = await UserService.getUserByName("Po");
-    const listShoppersResponse = await ListShopperController.getShoppersListFromUserById(data.id!);
+    const listShoppersResponse =
+      await ListShopperController.getShoppersListFromUserById(data.id!);
 
     setListShopper(listShoppersResponse);
   };
 
-  const goToCreateList = () => { router.push("/lists") }
+  const goToCreateList = () => {
+    router.push("/lists");
+  };
 
   useEffect(() => {
     getListShopper();
@@ -38,7 +41,11 @@ export default function Home() {
       </section>
       <div className={styles.navbar}>
         <div className={styles.buttonContainer}>
-          <DefaultNavbarButton name="Nueva Lista" isLoading={false} onClick={goToCreateList} />
+          <DefaultNavbarButton
+            name="Nueva Lista"
+            isLoading={false}
+            onClick={goToCreateList}
+          />
         </div>
       </div>
     </main>

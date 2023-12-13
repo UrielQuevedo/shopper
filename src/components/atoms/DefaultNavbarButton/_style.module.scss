@@ -1,9 +1,8 @@
 @import "@/styles/_general_styling.scss";
 
 .button {
-  background: $primary;
+  background: $primary !important;
   color: white;
-  font-family: '__Caveat_245150', '__Caveat_Fallback_245150';
   font-size: 32px;
   font-style: normal;
   font-weight: 543;

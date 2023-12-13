@@ -50,3 +50,6 @@ a:focus {
   padding: 22px;
 }
 
+.MuiButtonBase-root {
+  font-family: '__Caveat_245150', '__Caveat_Fallback_245150';
+}
