@@ -1,4 +1,5 @@
 import Product from "@/services/firebase/entities/Product";
+import Styles from "./_style.module.scss";
 import {
   ActionAnimations,
   SwipeableList,
@@ -50,7 +51,7 @@ const ProductListFast = ({
             actionAnimation: ActionAnimations.RETURN,
           }}
         >
-          {product.marked && <div>Esta Marcado</div>}
+          {product.marked && <div className={Styles.marked}></div>}
           <SimpleProductCard {...product} />
         </SwipeableListItem>
       ))}

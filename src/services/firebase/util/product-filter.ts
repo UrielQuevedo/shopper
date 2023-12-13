@@ -15,6 +15,12 @@ const orderProductsBy = (
   ordersBy: ((a: Product, b: Product) => number)[],
 ) => {
   return products.sort((a, b) => {
+    if (a.marked && !b.marked) {
+      return 1;
+    } else if (!a.marked && b.marked) {
+      return -1;
+    }
+
     for (const orderBy of ordersBy) {
       const resultado = orderBy(a, b);
       if (resultado !== 0) {

@@ -38,8 +38,13 @@ const ListShopperController = {
       0,
     );
     const totalProductsAdded = products.reduce(
-      (prevValue, { quantity, price }) =>
-        price > 0 ? prevValue + quantity : prevValue,
+      (prevValue, { quantity, price, marked }) => {
+	if (!marked) {
+	  return price > 0 ? prevValue + quantity : prevValue;
+	}
+
+	return prevValue + quantity;
+      },
       0,
     );
 

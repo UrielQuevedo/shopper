@@ -1,6 +1,6 @@
-import { CircularProgress } from "@mui/material";
-import Styles from "./_style.module.scss";
-import LoadingButton from "@mui/lab/LoadingButton";
+import { CircularProgress } from '@mui/material';
+import Styles from './_style.module.scss';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 interface DefaultNavbarButtonProps {
   name: string;
@@ -8,7 +8,11 @@ interface DefaultNavbarButtonProps {
   onClick?: any;
 }
 
-const DefaultNavbarButton = ({ name, isLoading, onClick = () => {} }: DefaultNavbarButtonProps) => {
+const DefaultNavbarButton = ({
+  name,
+  isLoading,
+  onClick = () => {},
+}: DefaultNavbarButtonProps) => {
   return (
     <LoadingButton
       size="small"

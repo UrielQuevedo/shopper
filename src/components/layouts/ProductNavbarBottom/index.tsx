@@ -1,6 +1,7 @@
-import Styles from "./_style.module.scss";
-import Link from "next/link";
-import { calculateDiscount } from "@/utils/functions";
+import Styles from './_style.module.scss';
+import Link from 'next/link';
+import { calculateDiscount } from '@/utils/functions';
+import { Button } from '@mui/material';
 
 interface ProductNavbarBottomProps {
   totalProductsAdded: number;
@@ -8,6 +9,7 @@ interface ProductNavbarBottomProps {
   totalPrice: number;
   listShopperId: string;
   discountAmount: number;
+  goTo: any;
 }
 
 const ProductNavbarBottom = ({
@@ -16,10 +18,11 @@ const ProductNavbarBottom = ({
   totalPrice,
   listShopperId,
   discountAmount,
+  goTo,
 }: ProductNavbarBottomProps) => {
   return (
     <div className={Styles.navbar}>
-      <Link className={Styles.addButton} href={`/lists/${listShopperId}/product`}>
+      <Button className={Styles.addButton} onClick={goTo}>
         <span className={Styles.icon}>
           <svg
             width="27"
@@ -40,13 +43,15 @@ const ProductNavbarBottom = ({
             />
           </svg>
         </span>
-      </Link>
+      </Button>
       <div>
         <h2>
-          {totalProductsAdded} {totalProducts > 0 ? `/ ${totalProducts}` : ""}{" "}
+          {totalProductsAdded} {totalProducts > 0 ? `/ ${totalProducts}` : ''}{' '}
           productos
         </h2>
-        <h1>${calculateDiscount(totalPrice, discountAmount)}</h1>
+        {calculateDiscount(totalPrice, discountAmount) !== 0 && (
+          <h1>${calculateDiscount(totalPrice, discountAmount)}</h1>
+        )}
       </div>
       <button className={Styles.continueButton}>Continuar</button>
     </div>

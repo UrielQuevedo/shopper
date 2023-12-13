@@ -5,13 +5,14 @@ import { Toolbar } from "@mui/material";
 interface NavbarTitleProps {
   title: string;
   backLink: string;
+  loading?: boolean;
 }
 
-const NavbarTitle = ({ title, backLink }: NavbarTitleProps) => {
+const NavbarTitle = ({ title, backLink, loading = false }: NavbarTitleProps) => {
   return (
     <Link href={backLink} className={Styles.appBar}>
       <Toolbar>
-        <h2 className={Styles.title}>{title}</h2>
+        <h2 className={Styles.title}> {(loading ? '...' : title) }</h2>
       </Toolbar>
     </Link>
   );
