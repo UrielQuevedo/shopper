@@ -61,7 +61,7 @@ export default function ListCard({
       {dateCompleted && <h3 style={{ color: 'green' }}> {dateCompleted} </h3>}
       {showIfCompleted(totalProducts, totalProductsAdded) && (
         <h2 className={Styles.completed}>
-          Completado{' '}
+          {'Completado '}
           <span className={Styles.totalProducts}>({totalProducts})</span>
         </h2>
       )}

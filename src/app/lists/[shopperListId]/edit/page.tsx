@@ -35,7 +35,7 @@ export default function EditListPage({ params: { shopperListId } }: { params: { 
       <section className={styles.main}>
         <Container maxWidth="md">
           <ListShopperForm
-            buttonName="Editar"
+            buttonName="Guardar"
             onSubmit={editList}
             defaultListShopper={listShopper}
           />

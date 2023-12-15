@@ -105,45 +105,42 @@ export default function List() {
     await getListShopperData();
   };
 
-  const goTo = () => {
+  const goTo = (url: string) => {
     setLoadingRouter(true);
-    router.push(`/lists/${shopperListId}/product`);
+    router.push(url);
   };
 
   return (
     <main>
-      <Loading isLoading={loadingRouter} />
-      {!loadingRouter && (
-        <>
-          <Navbar title={title} listShopperId={shopperListId} />
-          <section className={styles.main}>
-            <Loading isLoading={loading} />
-            {!loading && (
-              <>
-                <InputSearch handleSearch={handleSearch} />
-                <Loading isLoading={loadingSearch} />
-                {ProductListComponent && !loadingSearch && (
-                  <ProductListComponent
-                    products={products}
-                    updateProducts={updateProducts}
-                    shopperListId={shopperListId}
-                  />
-                )}
-                {ProductNavbarBottomComponent && (
-                  <ProductNavbarBottomComponent
-                    totalProducts={totalProducts}
-                    totalProductsAdded={totalProductsAdded}
-                    totalPrice={totalPrice}
-                    listShopperId={shopperListId}
-                    discountAmount={discountAmount}
-                    goTo={goTo}
-                  />
-                )}
-              </>
+      <Navbar title={title} listShopperId={shopperListId} />
+      <section className={styles.main}>
+        <Loading isLoading={loading} />
+        {!loading && (
+          <>
+            <InputSearch handleSearch={handleSearch} />
+            <Loading isLoading={loadingSearch} />
+            {ProductListComponent && !loadingSearch && (
+              <ProductListComponent
+                products={products}
+                updateProducts={updateProducts}
+                shopperListId={shopperListId}
+                goTo={goTo}
+                discount={discountAmount}
+              />
             )}
-          </section>
-        </>
-      )}
+            {ProductNavbarBottomComponent && (
+              <ProductNavbarBottomComponent
+                totalProducts={totalProducts}
+                totalProductsAdded={totalProductsAdded}
+                totalPrice={totalPrice}
+                listShopperId={shopperListId}
+                discountAmount={discountAmount}
+                goTo={goTo}
+              />
+            )}
+          </>
+        )}
+      </section>
     </main>
   );
 }

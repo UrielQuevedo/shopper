@@ -37,19 +37,19 @@
 }
 
 .addButton {
-  width: 65px;
-  height: 65px;
-  background-color: $background;
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 7rem;
-  margin: auto;
-  border-radius: 43px;
-  border: 6px solid $primary;
-  z-index: 1;
+  width: 65px !important;
+  height: 65px !important;
+  background-color: $background !important;
+  position: absolute !important;
+  content: '' !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 7rem !important;
+  margin: auto !important;
+  border-radius: 43px !important;
+  border: 6px solid $primary !important;
+  z-index: 1 !important;
 }
 
 .continueButton {

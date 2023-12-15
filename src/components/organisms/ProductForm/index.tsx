@@ -1,14 +1,14 @@
-"use client";
-import { useEffect, useState } from "react";
-import Product from "@/services/firebase/entities/Product";
-import NavbarButton from "@/components/layouts/NavbarButton";
-import { useRouter } from "next/navigation";
-import DefaultInput from "@/components/atoms/DefaultInput";
-import { ProductInput } from "@/utils/inputs";
-import { calculateDiscount } from "@/utils/functions";
-import ListShopperController from "@/services/firebase/controller/ListShopperController";
+'use client';
+import { useEffect, useState } from 'react';
+import Product from '@/services/firebase/entities/Product';
+import NavbarButton from '@/components/layouts/NavbarButton';
+import { useRouter } from 'next/navigation';
+import DefaultInput from '@/components/atoms/DefaultInput';
+import { ProductInput } from '@/utils/inputs';
+import { calculateDiscount } from '@/utils/functions';
+import ListShopperController from '@/services/firebase/controller/ListShopperController';
 
-type ProductKeysWOMarked = Exclude<keyof Product, 'marked'>
+type ProductKeysWOMarked = Exclude<keyof Product, 'marked'>;
 
 interface ProductFormProps {
   backLink: string;
@@ -34,24 +34,28 @@ const ProductForm = ({
 
   const [product, setProduct] = useState<Product>(
     defaultProduct || {
-      name: "",
+      name: '',
       quantity: 1,
       price: 0,
-    },
+    }
   );
   const { quantity, price } = product;
 
   const getTotalPrice = async () => {
-    const data = await ListShopperController.getDataFromListShopper(
-      listShopperId,
-    );
-    setTotalPrice(data.totalPrice);
+    const data =
+      await ListShopperController.getDataFromListShopper(listShopperId);
+
+    if (defaultProduct?.price && defaultProduct?.quantity) {
+      setTotalPrice(data.totalPrice - price * quantity);
+    } else {
+      setTotalPrice(data.totalPrice);
+    }
     setDiscountAmount(data.discountAmount);
   };
 
   useEffect(() => {
     getTotalPrice();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +82,7 @@ const ProductForm = ({
           value={
             product[inputsOptions.name as ProductKeysWOMarked]
               ? product[inputsOptions.name as ProductKeysWOMarked]
-              : ""
+              : ''
           }
           {...inputsOptions}
           onChange={handleInputChange}

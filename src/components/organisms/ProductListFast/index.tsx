@@ -1,29 +1,29 @@
-import Product from "@/services/firebase/entities/Product";
-import Styles from "./_style.module.scss";
+import Product from '@/services/firebase/entities/Product';
+import Styles from './_style.module.scss';
 import {
   ActionAnimations,
   SwipeableList,
   SwipeableListItem,
-} from "@sandstreamdev/react-swipeable-list";
-import SwipeableCard from "@/components/atoms/SwipeableCard";
-import SimpleProductCard from "@/components/molecules/SimpleProductCard";
-import { useRouter } from "next/navigation";
-import ProductController from "@/services/firebase/controller/ProductController";
+} from '@sandstreamdev/react-swipeable-list';
+import SwipeableCard from '@/components/atoms/SwipeableCard';
+import SimpleProductCard from '@/components/molecules/SimpleProductCard';
+import ProductController from '@/services/firebase/controller/ProductController';
 
 const ProductListFast = ({
   products,
   updateProducts,
   shopperListId,
+  goTo,
 }: {
   products: Product[];
   updateProducts: () => Promise<void>;
   shopperListId: string;
+  goTo: any;
 }) => {
   const threshold = 0.35;
-  const router = useRouter();
 
   const goToProduct = (id?: string) => {
-    router.push(`/lists/${shopperListId}/product/${id}`);
+    goTo(`/lists/${shopperListId}/product/${id}`);
   };
 
   const markProduct = async (id: string) => {

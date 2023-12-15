@@ -22,7 +22,10 @@ const ProductNavbarBottom = ({
 }: ProductNavbarBottomProps) => {
   return (
     <div className={Styles.navbar}>
-      <Button className={Styles.addButton} onClick={goTo}>
+      <Button
+        className={Styles.addButton}
+        onClick={() => goTo(`/lists/${listShopperId}/product`)}
+      >
         <span className={Styles.icon}>
           <svg
             width="27"

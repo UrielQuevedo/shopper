@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import UserService from "@/services/firebase/services/UserService";
+import UserService from '@/services/firebase/services/UserService';
 
 export default function ListsPage() {
   const createUser = async () => {
     const user = await UserService.createUser({
-      name: "Po",
+      name: 'Po',
     });
     console.log(user);
   };
