@@ -5,12 +5,14 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ListShopperController from '@/services/firebase/controller/ListShopperController';
 import { NestedMiddlewareError } from 'next/dist/build/utils';
+import Image from 'next/image';
 
 interface ListCardProps {
   id?: string;
   title: string;
   date: string;
   dateCompleted?: string;
+  type?: 'Fast';
 }
 
 export default function ListCard({
@@ -18,6 +20,7 @@ export default function ListCard({
   title,
   date,
   dateCompleted,
+  type,
 }: ListCardProps) {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
@@ -43,6 +46,14 @@ export default function ListCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  const getUrlBackground = () => {
+    if (type === 'Fast') {
+      return '';
+    }
+
+    return '/backcard.png';
+  };
+
   const showIfCompleted = (totalProducts: number, totalProductsAdded: number) =>
     totalProducts === totalProductsAdded && totalProducts !== 0;
 
@@ -56,6 +67,13 @@ export default function ListCard({
 
   return (
     <Container maxWidth="md" className={Styles.card} onClick={goToListPage}>
+      <Image
+        src={`${getUrlBackground()}`}
+        width={735}
+        height={245}
+        alt="asdasd"
+        className={Styles.cardImage}
+      />
       <h1 className={Styles.titleCard}>{title}</h1>
       <h3> {date} </h3>
       {dateCompleted && <h3 style={{ color: 'green' }}> {dateCompleted} </h3>}

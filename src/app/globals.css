@@ -16,6 +16,7 @@ body {
 
 body {
   background-color: #f0fbfb;
+  background-image: url("/fondo.jpeg");
 }
 
 a {

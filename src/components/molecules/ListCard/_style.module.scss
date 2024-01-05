@@ -7,37 +7,53 @@
   width: 100%;
   margin-top: 18px;
   box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.06);
+  position: relative;
 
   h3 {
     color: gray;
     font-weight: 500;
+    position: relative;
   }
+}
+
+.cardImage {
+ position: absolute;
+ top: 0;
+ right: 0;
+ width: 100%;
+ height: 100%;
+ color: white;
+ border-radius: 18px;
 }
 
 .empty {
   text-align: right;
   font-size: 28px;
   color: brown;
+  position: relative;
 }
 
 .completed {
   text-align: right;
   font-size: 28px;
   color: green;
+  position: relative;
 }
 
 .pending {
   text-align: right;
   font-size: 28px;
   color: orange;
+  position: relative;
 }
 
 .titleCard {
   font-size: 42px;
   margin-bottom: 5px;
-
+  position: relative;
 }
 
 .totalNumber {
   font-size: 22px;
+  position: relative;
 }
